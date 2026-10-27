@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Trading Regime Switching System</title>
+    <style>
+        :root {
+            --bg: #f6f7f9;
+            --surface: #ffffff;
+            --text: #1c2330;
+            --muted: #5b6577;
+            --border: #d5dae3;
+            --head-bg: #1f3a5f;
+            --head-text: #ffffff;
+            --accent: #1f3a5f;
+            --group-bg: #eef2f8;
+            --warn-bg: #fdecec;
+            --warn-text: #8a1f1f;
+            --ok-bg: #e8f5ec;
+            --ok-text: #1d5e33;
+            --focus: #2f6fdb;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #12161d;
+                --surface: #1a202b;
+                --text: #e6e9ef;
+                --muted: #9aa4b5;
+                --border: #2f394a;
+                --head-bg: #2b4a7a;
+                --accent: #8db4ee;
+                --group-bg: #212a38;
+                --warn-bg: #3a1e22;
+                --warn-text: #f0a3a3;
+                --ok-bg: #1b3326;
+                --ok-text: #8fd3a8;
+                --focus: #8db4ee;
+            }
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.45;
+            padding: 24px 16px 48px;
+        }
+
+        .wrap {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: clamp(1.15rem, 2.2vw, 1.6rem);
+            margin: 0 0 6px;
+            color: var(--accent);
+        }
+
+        p.sub {
+            margin: 0 0 14px;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            align-items: center;
+            margin: 0 0 12px;
+        }
+
+        .bar .note {
+            color: var(--muted);
+            font-size: .82rem;
+            margin-left: auto;
+        }
+
+        button,
+        select {
+            font: inherit;
+            font-size: .85rem;
+            color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 12px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--group-bg);
+        }
+
+        button.primary {
+            background: var(--head-bg);
+            color: var(--head-text);
+            border-color: var(--head-bg);
+        }
+
+        button.primary:hover {
+            filter: brightness(1.12);
+        }
+
+        button:focus-visible,
+        select:focus-visible,
+        [contenteditable]:focus-visible {
+            outline: 2px solid var(--focus);
+            outline-offset: -2px;
+        }
+
+        .scroll {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            background: var(--surface);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            min-width: 1350px;
+            font-size: .88rem;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border);
+            padding: 10px 12px;
+            text-align: left;
+            vertical-align: top;
+        }
+
+        thead th {
+            background: var(--head-bg);
+            color: var(--head-text);
+            font-weight: 600;
+            font-size: .78rem;
+            letter-spacing: .04em;
+            text-transform: uppercase;
+        }
+
+        td.group {
+            background: var(--group-bg);
+            font-weight: 600;
+            vertical-align: middle;
+        }
+
+        td.num {
+            text-align: center;
+            width: 56px;
+        }
+
+        td.warn {
+            background: var(--warn-bg);
+            color: var(--warn-text);
+            font-weight: 500;
+        }
+
+        td.ok {
+            background: var(--ok-bg);
+            color: var(--ok-text);
+            font-weight: 500;
+        }
+
+        td.tools {
+            width: 96px;
+            white-space: nowrap;
+            background: var(--surface);
+        }
+
+        td.tools button {
+            padding: 2px 8px;
+            margin-right: 2px;
+        }
+
+        td.tools select {
+            display: block;
+            margin-top: 6px;
+            padding: 3px 4px;
+            font-size: .78rem;
+            width: 100%;
+        }
+
+        td[contenteditable]:empty::before {
+            content: "—";
+            color: var(--muted);
+        }
+
+        .hint {
+            color: var(--muted);
+            font-size: .8rem;
+            margin: 8px 2px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <h1 id="title" contenteditable="plaintext-only" spellcheck="false">Technical and Option and Future Hedging
+            Trading System &mdash; Regime Switching Mode</h1>
+        <p class="sub" id="sub" contenteditable="plaintext-only" spellcheck="false">Trade regime, trading and execution
+            process</p>
+
+        <div class="scroll">
+            <table id="tbl"></table>
+        </div>
+        <p class="hint">Swipe sideways to see all columns. Click any cell to edit it; changes autosave in this browser.
+        </p>
+    </div>
+
+    <script type="application/json" id="data">
+{
+  "heads": [
+    "S.N.O",
+    "Strategy Name",
+    "Indicators",
+    "Comitators",
+    "Indicators",
+    "Execution",
+    "Execution Step 1",
+    "Execution Step 2",
+    "Execution Step 3",
+    "Remarks"
+  ],
+  "groups": {
+    "g1": [
+      "1",
+      "MEAN REVISION",
+      "BOLLINGER BAND",
+      "DIVATION 1 TO 10"
+    ]
+  },
+  "rows": [
+    {
+      "gid": "g1",
+      "c": [
+        "CHECK FOR PRICE NEAR MIDDLR BOLLINGER BAND",
+        "MAKE OPTION STRANGLE TRADE",
+        "sell put and sell call",
+        "If the price does not break the range, hedge it with a long strangle: buy a call and buy a put",
+        "do nothing",
+        "Fully protected at Execution Step 2 only"
+      ],
+      "tone": "ok"
+    },
+    {
+      "gid": "g1",
+      "c": [
+        "Check if price touches lower bollinger band and rsi and supertrend then exit put trade in loss and hedge call trade so that call trade is hedged",
+        "Make option bull call hedged spread",
+        "sell call and buy call",
+        "if rsi and super trend gets active then sell future",
+        "If RSI and supertrend stratergy gets rejected and supertrend gives reversal sign then buy call",
+        "Fully protected no risk of loss and loss has been booked"
+      ],
+      "tone": "ok"
+    },
+    {
+      "gid": "g1",
+      "c": [
+        "Check if price touches upper bollinger band and rsi and supertrend then exit call trade in loss and hedge put trade so that put trade is hedged",
+        "Make option bull put hedged spread",
+        "Sell put and buy put",
+        "if rsi and super trend gets active then buy future",
+        "If RSI and supertrend stratergy gets rejected and supertrend gives reversal sign then buy put",
+        "Fully protected no risk of loss and loss has been booked"
+      ],
+      "tone": "ok"
+    }
+  ]
+}
+</script>
+
+    <script>
+        (function () {
+            var KEY = "regime-table-v6";
+            var original = document.getElementById("data").textContent;
+            var D = JSON.parse(original);
+            try {
+                var saved = localStorage.getItem(KEY);
+                if (saved) D = JSON.parse(saved);
+            } catch (e) { }
+
+            var tbl = document.getElementById("tbl");
+            var titleEl = document.getElementById("title");
+            var subEl = document.getElementById("sub");
+            if (D.title) titleEl.textContent = D.title;
+            if (D.sub) subEl.textContent = D.sub;
+
+            function save() {
+                D.title = titleEl.textContent;
+                D.sub = subEl.textContent;
+                try { localStorage.setItem(KEY, JSON.stringify(D)); } catch (e) { }
+            }
+
+            function cell(tag, text, cls, onInput) {
+                var el = document.createElement(tag);
+                if (cls) el.className = cls;
+                el.textContent = text;
+                el.setAttribute("contenteditable", "plaintext-only");
+                el.spellcheck = false;
+                el.addEventListener("input", function () { onInput(el.textContent); save(); });
+                return el;
+            }
+
+            function render() {
+                tbl.textContent = "";
+                var thead = tbl.createTHead().insertRow();
+                D.heads.forEach(function (h, i) {
+                    thead.appendChild(cell("th", h, "", function (v) { D.heads[i] = v; }));
+                });
+
+                var tbody = tbl.createTBody();
+                D.rows.forEach(function (r, i) {
+                    var tr = tbody.insertRow();
+                    if (i === 0 || D.rows[i - 1].gid !== r.gid) {
+                        var span = 1;
+                        while (D.rows[i + span] && D.rows[i + span].gid === r.gid) span++;
+                        var g = D.groups[r.gid];
+                        g.forEach(function (v, k) {
+                            var td = cell("td", v, "group" + (k === 0 ? " num" : ""), function (t) { g[k] = t; });
+                            td.rowSpan = span;
+                            tr.appendChild(td);
+                        });
+                    }
+                    var tone = r.tone || "";
+                    r.c.forEach(function (v, k) {
+                        var last = k === r.c.length - 1;
+                        tr.appendChild(cell("td", v, last ? tone : "", function (t) { r.c[k] = t; }));
+                    });
+                });
+            }
+
+            [titleEl, subEl].forEach(function (el) { el.addEventListener("input", save); });
+            render();
+        })();
+    </script>
+</body>
+
+</html>
